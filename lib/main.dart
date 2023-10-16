@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_ui/top_appbar.dart';
+import 'package:messenger_ui/searchbar_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Container(
       padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
       child: ListView(
-        children: [TopAppbar(), SearchBar()],
+        children: [TopAppbar(), SearchBarWidget()],
       ),
     )));
   }
