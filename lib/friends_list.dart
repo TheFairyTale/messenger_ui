@@ -82,48 +82,110 @@ class _FriendsListWidgetState extends State<FriendsListWidget> {
     // 聊天消息列表
     return Column(
       children: List.generate(conversationList.length, (index) {
-        return InkWell(
-          onTap: () {
-            print("object $index");
-            // 打开一个页面
-            // Navigator.of(context).push();
-          },
-          hoverColor: const Color.fromARGB(255, 172, 200, 228),
-          child: Padding(padding: const EdgeInsets.only(bottom: 10),
-          child: Row(children: [
-            Container(
-              width: 65,
-              height: 60,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 215, 217, 219),
-                        width: 3
-                      )
+        return Padding(
+            padding: EdgeInsets.zero,
+            child: InkWell(
+                onTap: () {
+                  print("object $index");
+                  // 打开一个页面
+                  // Navigator.of(context).push();
+                },
+                hoverColor: const Color.fromARGB(255, 172, 200, 228),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 2.5, 0, 2.5),
+                  child: Row(children: [
+                    Container(
+                      width: 65,
+                      height: 60,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: const Color.fromARGB(
+                                        255, 215, 217, 219),
+                                    width: 3)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Container(
+                                width: 75,
+                                height: 75,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                          conversationList[index]['image'],
+                                        ),
+                                        fit: BoxFit.cover)),
+                              ),
+                            ),
+                          ),
+                          // 选择在线的人员并显示在列表前一部分
+                          conversationList[index]['isOnline']
+                              ? Positioned(
+                                  top: 38,
+                                  left: 42,
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFF66BB6A),
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            color: const Color(0xFFFFFFFF),
+                                            width: 3)),
+                                  ))
+                              : Positioned(
+                                  top: 38,
+                                  left: 42,
+                                  child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 174, 177, 174),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: const Color(0xFFFFFFFF),
+                                              width: 3))),
+                                )
+                        ],
+                      ),
                     ),
-                    child: Padding(padding: const EdgeInsets.all(2.0),
-                    child: Container(width: 75,
-                    height: 75,
-                    decoration: BoxDecoration(
-                      shape:  BoxShape.circle,
-                      image: DecorationImage(image: AssetImage(conversationList[index]['image'],
-                      )
-                      , fit: BoxFit.cover
-                      )
+                    const SizedBox(
+                      width: 20,
                     ),
-                    ),
-                    ),
-                  ),
-                  
-                ],
-              ),
-            )
-          ]),
-          ),
-        )
+                    Column(
+                      // 将项目按左对齐排列
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          conversationList[index]['name'],
+                          style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          // 这个的作用是？
+                          // width: MediaQuery.of(context).size.width - 135,
+                          child: Text(
+                            conversationList[index]['message'] +
+                                " - " +
+                                conversationList[index]['time'],
+                            style: TextStyle(
+                                fontSize: 15,
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.7)),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
+                    )
+                  ]),
+                )));
       }),
     );
   }

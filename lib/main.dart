@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messenger_ui/friends_list.dart';
 import 'package:messenger_ui/top_appbar.dart';
 import 'package:messenger_ui/searchbar_widget.dart';
 
@@ -46,14 +47,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: TopAppbar(),
+        appBar: PreferredSize(
+            child: TopAppbar(),
+            preferredSize: Size(MediaQuery.of(context).size.width, 50)),
         // 使用SafeArea在外层来适配不同屏幕, 主要用于适配异形屏或屏幕四周带圆角的屏幕，使其字体避开圆角区域
         body: SafeArea(
             child: Container(
-      padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
-      child: ListView(
-        children: [TopAppbar(), SearchBarWidget()],
-      ),
-    )));
+          padding: const EdgeInsets.fromLTRB(0, 2, 0, 2),
+          child: ListView(
+            children: [
+              // TopAppbar(),
+              SearchBarWidget(), FriendsListWidget()
+            ],
+          ),
+        )));
   }
 }
